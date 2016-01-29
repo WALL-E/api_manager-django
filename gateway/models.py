@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib import admin
 
 # Create your models here.
 class App(models.Model):
     CHOICES = (
-        ("0", "Clear"),
-        ("1", "Cipher"),
+        ("0", "明文"),
+        ("1", "密文"),
     )
     app_id = models.IntegerField(primary_key=True, default=0)
     name = models.CharField(max_length=16, default="")

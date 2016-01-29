@@ -3,25 +3,30 @@ from django.contrib import admin
 
 # Create your models here.
 class App(models.Model):
+    CHOICES = (
+        ("0", "Clear"),
+        ("1", "Cipher"),
+    )
     app_id = models.IntegerField(primary_key=True, default=0)
     name = models.CharField(max_length=16, default="")
     app_key = models.CharField(max_length=32, default="")
-    secret = models.CharField(max_length=32, default="")
-    is_encrypt = models.IntegerField(default=0)
-    remark1 = models.CharField(max_length=1024, default="")
-    remake2 = models.CharField(max_length=1024, default="")
+    app_secret = models.CharField(max_length=32, default="")
+    is_encrypt = models.CharField(choices=CHOICES, default="0", max_length=2)
+    remark1 = models.TextField(max_length=1024, default="")
+    remark2 = models.TextField(max_length=1024, default="")
+
 
 class AppAdmin(admin.ModelAdmin):
-    list_display=('app_id', 'name', 'app_key', 'secret', 'is_encrypt', 'remark1', 'remake2')
+    list_display=('app_id', 'name', 'app_key', 'app_secret', 'is_encrypt')
     search_fields=('name',)    
     list_filter = ('is_encrypt',)                 
     ordering = ('app_id','name')
-    fields = ('app_id', 'name', 'app_key', 'secret', 'is_encrypt', 'remark1', 'remake2')
+    #fields = ('app_id', 'name', 'app_key', 'app_secret', 'is_encrypt', 'remark1', 'remake2')
 
-    #fieldsets = (
-    #    ('Base Info', {'fields': ('app_id', 'name')}),
-    #    ('Meta Data', {'fields': ('app_key', 'secret', 'is_encrypt', 'remark1', 'remark2')}),
-    #)
+    fieldsets = (
+        ('Base Info', {'fields': ('app_id', 'name')}),
+        ('Meta Data', {'fields': ('app_key', 'app_secret', 'is_encrypt', 'remark1', 'remark2')}),
+    )
 
 class Service(models.Model):
     name = models.CharField(max_length=16, default="")
@@ -43,11 +48,12 @@ class Request_limit(models.Model):
     limit_value = models.IntegerField(default=0)
 
 class RequestlimitAdmin(admin.ModelAdmin):
-    #list_display=('app', 'service', 'limit_value')
+    empty_value_display = '-empty-'
+    list_display=('app', 'service', 'limit_value')
     search_fields=('app','service')    
-    #list_filter = ('app',)                 
-    #ordering = ('app','service')
-    #fields = ('app', 'service', 'limit_value')
+    list_filter = ('limit_value',)                 
+    ordering = ('app','service')
+    fields = ('app', 'service', 'limit_value')
 
 
 admin.site.register(App, AppAdmin)

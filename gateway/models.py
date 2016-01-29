@@ -8,13 +8,13 @@ class App(models.Model):
         ("0", "明文"),
         ("1", "密文"),
     )
-    app_id = models.IntegerField(primary_key=True, default=0)
-    name = models.CharField(max_length=16, default="")
-    app_key = models.CharField(max_length=32, default="")
-    app_secret = models.CharField(max_length=32, default="")
-    is_encrypt = models.CharField(choices=CHOICES, default="0", max_length=2)
-    remark1 = models.TextField(max_length=1024, default="")
-    remark2 = models.TextField(max_length=1024, default="")
+    name = models.CharField("名称", max_length=16, default="")
+    app_id = models.IntegerField("客户ID", primary_key=True, default=0)
+    app_key = models.CharField("Key", max_length=32, default="")
+    app_secret = models.CharField("Secret", max_length=32, default="")
+    is_encrypt = models.CharField("是否加密", choices=CHOICES, default="0", max_length=2)
+    remark1 = models.TextField("公钥", max_length=1024, default="")
+    remark2 = models.TextField("私钥", max_length=1024, default="")
 
 
 class AppAdmin(admin.ModelAdmin):

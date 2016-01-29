@@ -16,6 +16,13 @@ class App(models.Model):
     remark1 = models.TextField("公钥", max_length=1024, default="")
     remark2 = models.TextField("私钥", max_length=1024, default="")
 
+    class Meta:
+        verbose_name = '客户'
+        verbose_name_plural = '客户'
+   
+    def __unicode__(self):
+        return self.name
+
 
 class AppAdmin(admin.ModelAdmin):
     list_display=('app_id', 'name', 'app_key', 'app_secret', 'is_encrypt')
@@ -30,15 +37,20 @@ class AppAdmin(admin.ModelAdmin):
     )
 
 class Service(models.Model):
-    name = models.CharField(max_length=16, default="")
-    url = models.CharField(max_length=64, default="")
-    text = models.CharField(max_length=128, default="")
+    name = models.CharField("名称", max_length=16, default="")
+    url = models.CharField("URL", max_length=64, default="")
+    text = models.TextField("描述", max_length=128, default="")
+    class Meta:
+        verbose_name = '服务'
+        verbose_name_plural = '服务'
+   
+    def __unicode__(self):
+        return self.name
 
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display=('name', 'url', 'text')
-    search_fields=('name',)    
-    list_filter = ('name',)                 
+    search_fields=('name', 'url')    
     ordering = ('name','url')
     fields = ('name', 'url', 'text')
 

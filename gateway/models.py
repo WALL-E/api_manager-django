@@ -8,17 +8,17 @@ class App(models.Model):
         ("0", "明文"),
         ("1", "密文"),
     )
-    name = models.CharField("名称", max_length=16, default="")
-    app_id = models.IntegerField("客户ID", primary_key=True, default=0)
+    name = models.CharField("name", max_length=32, default="")
+    app_id = models.CharField("app_id", primary_key=True, max_length=16, default="")
     app_key = models.CharField("Key", max_length=32, default="")
     app_secret = models.CharField("Secret", max_length=32, default="")
-    is_encrypt = models.CharField("是否加密", choices=CHOICES, default="0", max_length=2)
-    remark1 = models.TextField("公钥", max_length=1024, default="")
-    remark2 = models.TextField("私钥", max_length=1024, default="")
+    is_encrypt = models.CharField("is_encrypt", choices=CHOICES, default="0", max_length=2)
+    remark1 = models.TextField("remark1", max_length=1024, default="")
+    remark2 = models.TextField("remark2", max_length=1024, default="")
 
     class Meta:
-        verbose_name = '客户'
-        verbose_name_plural = '客户'
+        verbose_name = 'App'
+        verbose_name_plural = 'App'
    
     def __unicode__(self):
         return self.name
@@ -37,12 +37,12 @@ class AppAdmin(admin.ModelAdmin):
     )
 
 class Service(models.Model):
-    name = models.CharField("名称", max_length=16, default="")
-    url = models.CharField("URL", max_length=64, default="")
-    text = models.TextField("描述", max_length=128, default="")
+    name = models.CharField("name", max_length=16, default="")
+    url = models.CharField("url", max_length=64, default="")
+    text = models.TextField("text", max_length=128, default="")
     class Meta:
-        verbose_name = '服务'
-        verbose_name_plural = '服务'
+        verbose_name = 'Service'
+        verbose_name_plural = 'Service'
    
     def __unicode__(self):
         return self.name

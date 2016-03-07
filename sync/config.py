@@ -5,9 +5,9 @@ import sys
 
 CONFIG_DIR = os.path.dirname(__file__)
 sys.path.append(CONFIG_DIR)
-sys.path.append(os.path.join(CONFIG_DIR, 'libs'))
+# sys.path.append(os.path.join(CONFIG_DIR, 'libs'))
 
-from mysql import MysqlClient
+# from mysql import MysqlClient
 
 # 数据库配置
 DB_NAME = 'api_manager'
@@ -24,6 +24,6 @@ DB_SLAVE = [{'db_name': DB_NAME,
              'passwd': '',
              'port': 3306}]
 
-MYSQL_CLIENT = MysqlClient(DB_MASTER, DB_SLAVE)
+# MYSQL_CLIENT = MysqlClient(DB_MASTER, DB_SLAVE)
 
 RDS_HOST = [{'host':'127.0.0.1', 'port':6379}]

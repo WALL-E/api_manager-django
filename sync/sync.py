@@ -70,7 +70,8 @@ def sync_redis_app():
         st[app["app_id"]] = app
 
     json_value = json.dumps(st, ensure_ascii=False)
-    # print json_value
+    print "apps"
+    print json_value
     for config in RDS_HOST:
         try:
             rds = redis.Redis(host=config["host"], port=config["port"], db=0)
@@ -98,10 +99,14 @@ def sync_redis_limit():
 
     st = {}
     for limit in limits:
-        st[limit["app_id"]] = {limit["url"]: limit["limit_value"]}
+        st[limit["app_id"]] = {}
+
+    for limit in limits:
+        st[limit["app_id"]][limit["url"]] = limit["limit_value"]
 
     json_value = json.dumps(st, ensure_ascii=False)
-    # print json_value
+    print "limits"
+    print json_value
     for config in RDS_HOST:
         try:
             rds = redis.Redis(host=config["host"], port=config["port"], db=0)

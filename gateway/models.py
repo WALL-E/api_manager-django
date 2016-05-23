@@ -50,6 +50,12 @@ class Service(models.Model):
     def __unicode__(self):
         return self.name
 
+class SuccessRatio(models.Model):
+    request_time = models.DateTimeField(auto_now=True, verbose_name=u'时间')
+    service = models.ForeignKey('Service', verbose_name="services", unique=False)
+    biz_success = models.IntegerField(verbose_name=u'成功率')
+    biz_fail = models.IntegerField(verbose_name=u'失败率')
+    unique_together = (("request_time", "service"),)
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display=('name', 'url', 'text', 'update_time')
@@ -58,8 +64,7 @@ class ServiceAdmin(admin.ModelAdmin):
     fields = ('name', 'url', 'text')
     readonly_fields = ('update_time',)
 
-
-class Request_limit(models.Model):
+class Requestlimit(models.Model):
     app = models.ForeignKey('App', verbose_name="list of apps")
     service = models.ForeignKey('Service', verbose_name="list of services")
     limit_value = models.IntegerField(default=0)
@@ -74,8 +79,22 @@ class RequestlimitAdmin(admin.ModelAdmin):
     fields = ('app', 'service', 'limit_value')
     readonly_fields = ('update_time',)
 
+class SuccessRatioAdmin(admin.ModelAdmin):
+    list_display=('request_time', 'service', 'biz_success', 'biz_fail')
+    ordering = ('request_time', 'service')
+    readonly_fields=('request_time', 'service', 'biz_success', 'biz_fail')
+    search_fields=('service',)    
+    list_filter = ('request_time',)                 
+   
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request):
+        return False
+
 
 admin.site.register(App, AppAdmin)
 admin.site.register(Service, ServiceAdmin)
-admin.site.register(Request_limit, RequestlimitAdmin)
+admin.site.register(Requestlimit, RequestlimitAdmin)
+admin.site.register(SuccessRatio, SuccessRatioAdmin)
 

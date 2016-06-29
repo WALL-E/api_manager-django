@@ -52,7 +52,7 @@ class Service(models.Model):
 
 class SuccessRatio(models.Model):
     request_time = models.DateTimeField(auto_now=True, verbose_name=u'时间')
-    service = models.ForeignKey('Service', verbose_name="services", unique=False)
+    service = models.ForeignKey('Service', verbose_name="service", unique=False)
     app_id = models.CharField("app_id", max_length=16, default="")
     name = models.CharField("name", max_length=32, default="")
     biz_success = models.IntegerField(verbose_name=u'成功率')

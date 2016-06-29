@@ -13,8 +13,8 @@ class App(models.Model):
     app_key = models.CharField("Key", max_length=32, default="")
     app_secret = models.CharField("Secret", max_length=32, default="")
     is_encrypt = models.CharField("is_encrypt", choices=CHOICES, default="0", max_length=2)
-    remark1 = models.TextField("remark1", max_length=1024, default="")
-    remark2 = models.TextField("remark2", max_length=1024, default="")
+    remark1 = models.TextField("publickey", max_length=1024, default="")
+    remark2 = models.TextField("privatekey", max_length=1024, default="")
     update_time = models.DateTimeField(auto_now=True)
 
     class Meta:

@@ -54,6 +54,7 @@ class SuccessRatio(models.Model):
     request_time = models.DateTimeField(auto_now=True, verbose_name=u'时间')
     service = models.ForeignKey('Service', verbose_name="services", unique=False)
     app_id = models.CharField("app_id", max_length=16, default="")
+    name = models.CharField("name", max_length=32, default="")
     biz_success = models.IntegerField(verbose_name=u'成功率')
     biz_fail = models.IntegerField(verbose_name=u'失败率')
 
@@ -80,11 +81,11 @@ class RequestlimitAdmin(admin.ModelAdmin):
     readonly_fields = ('update_time',)
 
 class SuccessRatioAdmin(admin.ModelAdmin):
-    list_display=('request_time', 'app_id', 'service', 'biz_success', 'biz_fail')
-    ordering = ('request_time', 'app_id', 'service')
-    readonly_fields=('request_time', 'app_id', 'service', 'biz_success', 'biz_fail')
-    search_fields=('app_id',)    
-    list_filter = ('request_time', 'app_id', 'service')
+    list_display=('request_time', 'name', 'app_id', 'service', 'biz_success', 'biz_fail')
+    ordering = ('request_time', 'name', 'app_id', 'service')
+    readonly_fields=('request_time', 'name', 'app_id', 'service', 'biz_success', 'biz_fail')
+    search_fields=('name',)    
+    list_filter = ('request_time', 'name', 'service')
    
     def has_delete_permission(self, request, obj=None):
         return False
